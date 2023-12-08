@@ -1,5 +1,8 @@
-name: Parallel Jobs
-on: push
+name: Artifcats Job
+on: 
+  push:
+    branches:
+      - main
 
 jobs:
   test:
@@ -15,6 +18,7 @@ jobs:
         run: npm run test
 
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: "Get Code"
@@ -25,7 +29,7 @@ jobs:
         run: npm run build
   
   deployment:
-    needs: test
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: "Deploying"
