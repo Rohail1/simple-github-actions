@@ -31,13 +31,18 @@ jobs:
         uses: "actions/upload-artifact@v3"
         with:
           name: "build files"
-          path: |
-            dist
-            package.json
+          path: build
   
   deployment:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: "Get Artificats"
+        uses: actions/download-artifact@v3
+        with:
+          name: "build files"
+      - name: "Output content"
+        run: "ls"
+
       - name: "Deploying"
         run: echo Deploying the code.
