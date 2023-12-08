@@ -2,7 +2,7 @@ name: Build Test and Deploy
 on: push
 
 jobs:
-  fulldeployment:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: "Get Code"
@@ -11,7 +11,17 @@ jobs:
         run: npm ci
       - name: "Build"
         run: npm run build
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: "test"
         run: npm run test
+  
+  deployment:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
       - name: "Deploying"
         run: echo Deploying the code.
