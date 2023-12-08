@@ -1,0 +1,10 @@
+name: Build Test and Deploy
+on: issues
+
+
+jobs:
+  fulldeployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Print the Event Context"
+        run: echo "${{ github.event }}"
