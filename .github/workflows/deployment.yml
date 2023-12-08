@@ -1,0 +1,15 @@
+name: Build Test and Deploy
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Installing dependencies"
+        run: npm ci
+      - name: "Build"
+        run: npm run build
+      - name: "test"
+        run: npm run test
+      - name: "Deploying"
+        run: echo Deploying the code.
