@@ -10,6 +10,11 @@ jobs:
     steps:
       - name: "Get Code"
         uses: actions/checkout@v4
+      - name: "Cache dependencies"
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-dependencies-${{hashFiles('**/package-lock.json')}}
       - name: "Installing dependencies"
         run: npm ci
       - name: "Lint"
@@ -18,7 +23,7 @@ jobs:
         run: npm run test
 
   build:
-    # needs: test
+    needs: test
     runs-on: ubuntu-latest
     outputs:
       script-file: ${{ steps.published.outputs.script-file }}
@@ -26,6 +31,11 @@ jobs:
     steps:
       - name: "Get Code"
         uses: actions/checkout@v4
+      - name: "Cache dependencies"
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-dependencies-${{hashFiles('**/package-lock.json')}}
       - name: "Installing dependencies"
         run: npm ci
       - name: "build"
