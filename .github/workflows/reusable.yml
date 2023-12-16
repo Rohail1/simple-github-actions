@@ -7,8 +7,14 @@ on:
         required: false
         default: dist
         type: string
+    outputs:
+      result:
+        description: This variable shows output of the workflow
+        value: ${{ jobs.deploy.outputs.jobOutput }}
 jobs:
   deploy:
+    outputs:
+      jobOutput: ${{steps.resultStep.outputs.result}}
     runs-on: ubuntu-latest
     steps:
       - name: Get build artifacts
@@ -21,3 +27,6 @@ jobs:
         run: |
           echo "Deploying"
           echo "${{ toJson(github) }}"
+      - name: "Set Result output"
+        id: resultStep
+        run: echo "result=success" >> $GITHUB_OUTPUT
