@@ -35,9 +35,9 @@ jobs:
         run: find dist/assets/*.js -type f -execdir echo "::set-output name=script-file::{}" ";"
       - name: "Using Github output"
         id: githubOpt
-        run: find dist/assets/*.js -type f -execdir echo "{name}={}" ";" >> $GITHUB_OUTPUT
+        run: find dist/assets/*.js -type f -execdir echo "{name}={{}}" ";" >> $GITHUB_OUTPUT
       - name: "Print Github output"
-        run: echo "$name"
+        run: echo $name
       - name: "Upload Artifacts"
         uses: "actions/upload-artifact@v3"
         with:
